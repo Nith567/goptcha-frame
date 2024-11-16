@@ -14,11 +14,12 @@ import axios from "axios";
 import sharp from "sharp";
 import https from "https";
 import dotenv from "dotenv";
-import { ABI } from "../lib/abi.js";
-// Uncomment this packages to tested on local server
-import { devtools } from "frog/dev";
-import { serveStatic } from "frog/serve-static";
 import { farcasterDataFrogMiddleware } from "@airstack/frames";
+import { ABI } from "../lib/abi.js";
+
+// Uncomment this packages to tested on local server
+// import { devtools } from "frog/dev";
+// import { serveStatic } from "frog/serve-static";
 
 // Load environment variables from .env file
 dotenv.config();
@@ -233,7 +234,7 @@ app.transaction("/mint", (c) => {
   }
 });
 
-devtools(app, { serveStatic });
+// devtools(app, { serveStatic });
 
 export const GET = handle(app);
 export const POST = handle(app);
