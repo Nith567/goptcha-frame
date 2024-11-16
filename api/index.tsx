@@ -204,7 +204,7 @@ app.frame("/:direction/:id", (c) => {
         </Box>
       ),
       imageAspectRatio: "1.91:1",
-      action: "/",
+      action: "/success",
       intents: [
         <Button.Transaction target="/mint">claim Faucet </Button.Transaction>,
       ],
@@ -215,7 +215,38 @@ app.frame("/:direction/:id", (c) => {
     });
   }
 });
-
+app.frame("/success", (c) => {
+  const { transactionId } = c;
+  return c.res({
+    image: (
+      <div
+        style={{
+          color: "white",
+          display: "flex",
+          flexDirection: "column",
+          justifyItems: "center",
+          alignItems: "center",
+          fontSize: 60,
+        }}
+      >
+        {transactionId
+          ? `tnx : ${transactionId.slice(0, 3)}...${transactionId.slice(-3)}`
+          : "Transaction ..."}
+      </div>
+    ),
+    imageAspectRatio: "1.91:1",
+    action: "/success",
+    intents: [
+      <Button.Link
+        key="hash"
+        href={`https://base-sepolia.blockscout.com/tx/${transactionId}`}
+      >
+        View on Block Explorer
+      </Button.Link>,
+      <Button action="/">Home</Button>,
+    ],
+  });
+});
 app.transaction("/mint", (c) => {
   try {
     return c.contract({
