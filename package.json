@@ -1,0 +1,25 @@
+{
+  "name": "goptcha-frame",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "frog vercel-build",
+    "dev": "frog dev",
+    "deploy": "vercel"
+  },
+  "dependencies": {
+    "@airstack/frames": "^1.2.0",
+    "axios": "^1.7.2",
+    "dotenv": "^16.4.5",
+    "frog": "^0.17.4",
+    "graphql": "^16.9.0",
+    "hono": "^4",
+    "https": "^1.0.0",
+    "sharp": "^0.33.4"
+  },
+  "devDependencies": {
+    "tsx": "^4.7.1",
+    "typescript": "^5.3.3",
+    "vercel": "^32.4.1"
+  }
+}
