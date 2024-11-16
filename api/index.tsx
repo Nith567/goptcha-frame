@@ -18,8 +18,8 @@ import { farcasterDataFrogMiddleware } from "@airstack/frames";
 import { ABI } from "../lib/abi.js";
 
 // Uncomment this packages to tested on local server
-// import { devtools } from "frog/dev";
-// import { serveStatic } from "frog/serve-static";
+import { devtools } from "frog/dev";
+import { serveStatic } from "frog/serve-static";
 
 // Load environment variables from .env file
 dotenv.config();
@@ -125,7 +125,7 @@ app.frame("/", (c) => {
             width="100%"
             justifyContent="center"
             textAlign="center"
-            marginBottom="24" // Added margin for spacing below the verification box
+            marginBottom="24"
           >
             <Text color={vars.colors.white} fontSize="20px">
               Please verify you're human
@@ -141,10 +141,18 @@ app.frame("/", (c) => {
     ],
   });
 });
+
+const imageDirections: { [key: string]: string } = {
+  1: "https://res.cloudinary.com/drjtpjxfa/image/upload/v1731758912/1_hwpojq.gif ",
+  2: "https://res.cloudinary.com/drjtpjxfa/image/upload/v1731758914/2_etyacw.gif ",
+  3: "https://res.cloudinary.com/drjtpjxfa/image/upload/v1731758912/3_chhexy.gif",
+  4: " https://res.cloudinary.com/drjtpjxfa/image/upload/v1731758912/4_xrnpdg.gif",
+};
+
 app.frame("/claim-faucet", (c) => {
   const random = Math.floor(Math.random() * 4) + 1;
   return c.res({
-    image: `${process.env.NEXT_PUBLIC_SITE_URL}/${random}.gif`,
+    image: `${imageDirections[random]}`,
     imageAspectRatio: "1.91:1",
     intents: [
       <Button action={`/N/${random}`}>North</Button>,
@@ -265,7 +273,7 @@ app.transaction("/mint", (c) => {
   }
 });
 
-// devtools(app, { serveStatic });
+devtools(app, { serveStatic });
 
 export const GET = handle(app);
 export const POST = handle(app);
