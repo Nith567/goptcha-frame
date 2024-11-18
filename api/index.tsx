@@ -1,5 +1,5 @@
 import { Button, Frog } from "frog";
-import { handle } from "frog/vercel";
+import { handle } from "frog/next";
 import {
   Box,
   Image,
@@ -226,22 +226,7 @@ app.frame("/:direction/:id", (c) => {
 app.frame("/success", (c) => {
   const { transactionId } = c;
   return c.res({
-    image: (
-      <div
-        style={{
-          color: "white",
-          display: "flex",
-          flexDirection: "column",
-          justifyItems: "center",
-          alignItems: "center",
-          fontSize: 60,
-        }}
-      >
-        {transactionId
-          ? `tnx : ${transactionId.slice(0, 3)}...${transactionId.slice(-3)}`
-          : "Transaction ..."}
-      </div>
-    ),
+    image: `${process.env.NEXT_PUBLIC_SITE_URL}/gotcha.jpg`,
     imageAspectRatio: "1.91:1",
     action: "/success",
     intents: [
@@ -260,13 +245,12 @@ app.transaction("/mint", (c) => {
     return c.contract({
       abi: ABI,
       chainId: "eip155:84532",
-      functionName: "mintFaucet",
+      functionName: "claimFaucet",
       args: [],
       to: "0x0A7dC674c876167bA3920D6d729895A52f6701B1",
       value: BigInt(0),
     });
   } catch (error) {
-    console.error("Error fetching passport data:", error);
     return c.error({
       message: "You can claim after 24hours again",
     });
