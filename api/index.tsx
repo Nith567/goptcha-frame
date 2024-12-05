@@ -80,73 +80,20 @@ export const app = new Frog({
 
 app.frame("/", (c) => {
   return c.res({
-    image: (
-      <Box
-        alignVertical="center"
-        backgroundColor={vars.colors.white}
-        justifyContent="center"
-        padding="24"
-        height="auto" // Changed from fixed height to auto for better responsiveness
-        width="100%"
-      >
-        <Box
-          backgroundColor={vars.colors.linear}
-          borderRadius="24"
-          padding="32"
-          maxWidth="600"
-          width="100%"
-          textAlign="center"
-          alignVertical="center"
-          boxShadow="0 4px 20px rgba(0, 0, 0, 0.1)" // Added shadow for depth
-        >
-          {/* Header Section */}
-          <Text
-            color={vars.colors.white}
-            fontSize="24px"
-            fontWeight="bold"
-            marginBottom="16px"
-          >
-            Welcome to Gotcha!
-          </Text>
-          <Text
-            color={vars.colors.linearBlur}
-            fontSize="18px"
-            marginBottom="32px"
-          >
-            Solve the CAPTCHA to claim your faucet rewards!
-          </Text>
-
-          <Spacer size="32" />
-
-          <Box
-            backgroundColor={vars.colors.purple}
-            borderRadius="12"
-            padding="16"
-            width="100%"
-            justifyContent="center"
-            textAlign="center"
-            marginBottom="24"
-          >
-            <Text color={vars.colors.white} fontSize="20px">
-              Please verify you're human
-            </Text>
-          </Box>
-        </Box>
-      </Box>
-    ),
+    image: `${process.env.NEXT_PUBLIC_SITE_URL}/gotcha.jpg`,
     imageAspectRatio: "1.91:1",
-    intents: [
-      <Button action="/claim-faucet">Claim Faucet</Button>,
-      <Button.Link href="https://github.com/gotcha-labs">Goptcha</Button.Link>,
-    ],
+    intents: [<Button action="/claim-faucet">Claim Faucet</Button>],
   });
 });
 
 const imageDirections: { [key: string]: string } = {
-  1: "https://res.cloudinary.com/drjtpjxfa/image/upload/v1731758912/1_hwpojq.gif ",
-  2: "https://res.cloudinary.com/drjtpjxfa/image/upload/v1731758914/2_etyacw.gif ",
-  3: "https://res.cloudinary.com/drjtpjxfa/image/upload/v1731758912/3_chhexy.gif",
-  4: " https://res.cloudinary.com/drjtpjxfa/image/upload/v1731758912/4_xrnpdg.gif",
+  1: `${process.env.NEXT_PUBLIC_SITE_URL}/north.gif`,
+  2: `${process.env.NEXT_PUBLIC_SITE_URL}/2.gif`,
+  3: `${process.env.NEXT_PUBLIC_SITE_URL}/3.gif`,
+  4: `${process.env.NEXT_PUBLIC_SITE_URL}/4.gif`,
+  // 2: "https://res.cloudinary.com/drjtpjxfa/image/upload/v1731758914/2_etyacw.gif ",
+  // 3: "https://res.cloudinary.com/drjtpjxfa/image/upload/v1731758912/3_chhexy.gif",
+  // 4: " https://res.cloudinary.com/drjtpjxfa/image/upload/v1731758912/4_xrnpdg.gif",
 };
 
 app.frame("/claim-faucet", (c) => {
@@ -174,43 +121,7 @@ app.frame("/:direction/:id", (c) => {
   const direction = c.req.param("direction");
   if (direction == directionMapping[c.req.param("id")]) {
     return c.res({
-      image: (
-        <Box
-          alignVertical="center"
-          backgroundColor={vars.colors.white}
-          justifyContent="center"
-          padding="46"
-          height="100%"
-          width="100%"
-        >
-          <Box
-            backgroundColor={vars.colors.linear}
-            borderRadius="24"
-            padding="32"
-            maxWidth="600"
-            width="100%"
-            textAlign="center"
-            alignVertical="center"
-            boxShadow="0 4px 20px rgba(0, 0, 0, 0.1)"
-          >
-            <Text
-              color={vars.colors.purple}
-              fontSize="24px"
-              fontWeight="bold"
-              marginBottom="16px"
-            >
-              Congratulations!
-            </Text>
-            <Text
-              color={vars.colors.linearBlur}
-              fontSize="18"
-              marginBottom="32"
-            >
-              Claim on baseSepolia Chain
-            </Text>
-          </Box>
-        </Box>
-      ),
+      image: `${process.env.NEXT_PUBLIC_SITE_URL}/gotcha.jpg`,
       imageAspectRatio: "1.91:1",
       action: "/success",
       intents: [
@@ -226,13 +137,13 @@ app.frame("/:direction/:id", (c) => {
 app.frame("/success", (c) => {
   const { transactionId } = c;
   return c.res({
-    image: `${process.env.NEXT_PUBLIC_SITE_URL}/gotcha.jpg`,
+    image: `${process.env.NEXT_PUBLIC_SITE_URL}/gotcha-end.gif`,
     imageAspectRatio: "1.91:1",
     action: "/success",
     intents: [
       <Button.Link
         key="hash"
-        href={`https://base-sepolia.blockscout.com/tx/${transactionId}`}
+        href={`https://polygonscan.com/tx/${transactionId}`}
       >
         View on Block Explorer
       </Button.Link>,
@@ -244,10 +155,10 @@ app.transaction("/mint", (c) => {
   try {
     return c.contract({
       abi: ABI,
-      chainId: "eip155:84532",
+      chainId: "eip155:137",
       functionName: "claimFaucet",
       args: [],
-      to: "0x0A7dC674c876167bA3920D6d729895A52f6701B1",
+      to: "0x491535778d056ad7324605753730291cbd83fca0",
       value: BigInt(0),
     });
   } catch (error) {
