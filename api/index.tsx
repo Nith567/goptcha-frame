@@ -45,14 +45,6 @@ interface UserDetails {
   }[];
 }
 
-const farcasterDataMiddleware = farcasterDataFrogMiddleware({
-  apiKey: process.env.AIRSTACK_API_KEY || "",
-  features: {
-    userDetails: {},
-  },
-  env: "dev",
-});
-
 // Initialize Frog App
 export const app = new Frog({
   assetsPath: "/",
@@ -91,9 +83,6 @@ const imageDirections: { [key: string]: string } = {
   2: `${process.env.NEXT_PUBLIC_SITE_URL}/2.gif`,
   3: `${process.env.NEXT_PUBLIC_SITE_URL}/3.gif`,
   4: `${process.env.NEXT_PUBLIC_SITE_URL}/4.gif`,
-  // 2: "https://res.cloudinary.com/drjtpjxfa/image/upload/v1731758914/2_etyacw.gif ",
-  // 3: "https://res.cloudinary.com/drjtpjxfa/image/upload/v1731758912/3_chhexy.gif",
-  // 4: " https://res.cloudinary.com/drjtpjxfa/image/upload/v1731758912/4_xrnpdg.gif",
 };
 
 app.frame("/claim-faucet", (c) => {
@@ -121,11 +110,11 @@ app.frame("/:direction/:id", (c) => {
   const direction = c.req.param("direction");
   if (direction == directionMapping[c.req.param("id")]) {
     return c.res({
-      image: `${process.env.NEXT_PUBLIC_SITE_URL}/gotcha.jpg`,
+      image: `${process.env.NEXT_PUBLIC_SITE_URL}/gotcha-end.gif`,
       imageAspectRatio: "1.91:1",
       action: "/success",
       intents: [
-        <Button.Transaction target="/mint">claim Faucet </Button.Transaction>,
+        <Button.Transaction target="/mint">Claim Faucet </Button.Transaction>,
       ],
     });
   } else {
