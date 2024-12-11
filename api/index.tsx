@@ -126,7 +126,7 @@ app.frame("/:direction/:id", (c) => {
 app.frame("/success", (c) => {
   const { transactionId } = c;
   return c.res({
-    image: `${process.env.NEXT_PUBLIC_SITE_URL}/gotcha-end.gif`,
+    image: `${process.env.NEXT_PUBLIC_SITE_URL}/gotcha.jpg`,
     imageAspectRatio: "1.91:1",
     action: "/success",
     intents: [
