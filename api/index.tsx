@@ -1,20 +1,6 @@
 import { Button, Frog } from "frog";
 import { handle } from "frog/next";
-import {
-  Box,
-  Image,
-  Column,
-  Divider,
-  Text,
-  Spacer,
-  vars,
-  VStack,
-} from "../lib/ui.js";
-import axios from "axios";
-import sharp from "sharp";
-import https from "https";
 import dotenv from "dotenv";
-import { farcasterDataFrogMiddleware } from "@airstack/frames";
 import { ABI } from "../lib/abi.js";
 
 // Uncomment this packages to tested on local server
@@ -24,32 +10,10 @@ import { ABI } from "../lib/abi.js";
 // Load environment variables from .env file
 dotenv.config();
 
-interface UserDetails {
-  profileName?: string | null;
-  fnames?: (string | null)[] | null;
-  userAssociatedAddresses?: string[] | null;
-  followerCount?: number | null;
-  followingCount?: number | null;
-  profileImage?: {
-    extraSmall?: string;
-    small?: string;
-    medium?: string;
-    large?: string;
-    original?: string;
-  } | null;
-  connectedAddresses?: {
-    address: string;
-    blockchain: string;
-    chainId: string;
-    timestamp: string;
-  }[];
-}
-
 // Initialize Frog App
 export const app = new Frog({
   assetsPath: "/",
   basePath: "/api/frame",
-  ui: { vars },
   title: "Faucet",
   imageAspectRatio: "1:1",
   headers: {
@@ -79,7 +43,7 @@ app.frame("/", (c) => {
 });
 
 const imageDirections: { [key: string]: string } = {
-  1: `${process.env.NEXT_PUBLIC_SITE_URL}/north.gif`,
+  1: `${process.env.NEXT_PUBLIC_SITE_URL}/1.gif`,
   2: `${process.env.NEXT_PUBLIC_SITE_URL}/2.gif`,
   3: `${process.env.NEXT_PUBLIC_SITE_URL}/3.gif`,
   4: `${process.env.NEXT_PUBLIC_SITE_URL}/4.gif`,
