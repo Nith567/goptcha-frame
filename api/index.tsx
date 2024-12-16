@@ -110,7 +110,7 @@ app.frame("/:direction/:id", (c) => {
   const direction = c.req.param("direction");
   if (direction == directionMapping[c.req.param("id")]) {
     return c.res({
-      image: `${process.env.NEXT_PUBLIC_SITE_URL}/gotcha-end.gif`,
+      image: `${process.env.NEXT_PUBLIC_SITE_URL}/gotcha-end-successful.gif`,
       imageAspectRatio: "1.91:1",
       action: "/success",
       intents: [
