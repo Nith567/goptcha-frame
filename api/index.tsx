@@ -38,7 +38,7 @@ app.frame("/", (c) => {
   return c.res({
     image: `https://res.cloudinary.com/drjtpjxfa/image/upload/v1733891919/gotcha_ue2gic.jpg`,
     imageAspectRatio: "1.91:1",
-    intents: [<Button action="/claim-faucet">Claim Faucet</Button>],
+    intents: [<Button action="/claim-faucet">Start</Button>],
   });
 });
 
