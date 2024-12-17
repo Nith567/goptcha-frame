@@ -36,17 +36,17 @@ export const app = new Frog({
 
 app.frame("/", (c) => {
   return c.res({
-    image: `${process.env.NEXT_PUBLIC_SITE_URL}/gotcha.jpg`,
+    image: `https://res.cloudinary.com/drjtpjxfa/image/upload/v1733891919/gotcha_ue2gic.jpg`,
     imageAspectRatio: "1.91:1",
     intents: [<Button action="/claim-faucet">Claim Faucet</Button>],
   });
 });
 
 const imageDirections: { [key: string]: string } = {
-  1: `${process.env.NEXT_PUBLIC_SITE_URL}/1.gif`,
-  2: `${process.env.NEXT_PUBLIC_SITE_URL}/2.gif`,
-  3: `${process.env.NEXT_PUBLIC_SITE_URL}/3.gif`,
-  4: `${process.env.NEXT_PUBLIC_SITE_URL}/4.gif`,
+  1: `https://res.cloudinary.com/drjtpjxfa/image/upload/v1733891657/north_wbzaw4.gif`,
+  2: `https://res.cloudinary.com/drjtpjxfa/image/upload/v1734443903/2_qwmrpj.gif`,
+  3: `https://res.cloudinary.com/drjtpjxfa/image/upload/v1734443903/3_z6icjn.gif`,
+  4: `https://res.cloudinary.com/drjtpjxfa/image/upload/v1734443904/4_i7n8ds.gif`,
 };
 
 app.frame("/claim-faucet", (c) => {
@@ -74,7 +74,8 @@ app.frame("/:direction/:id", (c) => {
   const direction = c.req.param("direction");
   if (direction == directionMapping[c.req.param("id")]) {
     return c.res({
-      image: `${process.env.NEXT_PUBLIC_SITE_URL}/gotcha-end-successful.gif`,
+      image:
+        "https://res.cloudinary.com/drjtpjxfa/image/upload/v1734361650/gotcha-end-successful_mcwmjq.gif",
       imageAspectRatio: "1.91:1",
       action: "/success",
       intents: [
@@ -90,7 +91,7 @@ app.frame("/:direction/:id", (c) => {
 app.frame("/success", (c) => {
   const { transactionId } = c;
   return c.res({
-    image: `${process.env.NEXT_PUBLIC_SITE_URL}/gotcha.jpg`,
+    image: `https://res.cloudinary.com/drjtpjxfa/image/upload/v1733891919/gotcha_ue2gic.jpg`,
     imageAspectRatio: "1.91:1",
     action: "/success",
     intents: [
